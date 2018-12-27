@@ -1,4 +1,4 @@
-import WebServiceProcessor.is_vat_payer as service
+from WebServiceProcessor import ServiceClient
 
 if __name__ == "__main__":
-    service.get(202311738)
+    ServiceClient.is_vat_payer_tin(org_code="202311738")

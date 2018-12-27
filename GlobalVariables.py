@@ -1,3 +1,12 @@
-url = "https://services.rs.ge/WayBillService/WayBillService.asmx?WSDL"
-su = "POCKET:202311738"
-sp = "trd@1234"
+class ServiceParameters():
+    su = ""
+    sp = ""
+
+    def __init__(self):
+        x = open("params.ini")
+        self.su = str(x.readline().replace("\n",""))
+        self.sp = str(x.readline().replace("\n",""))
+        x.close()
+        print("Parameters initialized")
+        print("su: {0},sp: {1}".format(self.su,self.sp))
+
