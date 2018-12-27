@@ -69,3 +69,4 @@ def is_vat_payer_tin(org_code):
         "tin":str(org_code)
     }
     x = wr.create_response()
+    return x[0].values()
