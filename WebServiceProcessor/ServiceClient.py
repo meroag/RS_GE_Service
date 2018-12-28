@@ -60,13 +60,69 @@ class ServiceList(Enum):
     what_is_my_ip = "what_is_my_ip"
 
 
+def __send_request__(serviceName, data=None):
+    wr = Wrapper(serviceName)
+    wr.data = data
+    resp = wr.create_response()
+    return resp
+
+
+def __send_simple_request_with_user_and_pass__(service_name):
+    params = GlobalVariables.ServiceParameters()
+    data = {
+        "su": params.su,
+        "sp": params.sp
+    }
+    return list(__send_request__(serviceName=service_name, data=data))
+
+
 def is_vat_payer_tin(org_code):
     params = GlobalVariables.ServiceParameters()
-    wr = Wrapper(ServiceList.is_vat_payer_tin.value)
-    wr.data = {
-        "su":params.su,
-        "sp":params.sp,
-        "tin":str(org_code)
+    data = {
+        "su": params.su,
+        "sp": params.sp,
+        "tin": org_code
     }
-    x = wr.create_response()
-    return x[0].values()
+    return list(__send_request__(serviceName=ServiceList.is_vat_payer_tin.value, data=data)[0].values())
+
+
+def chek_service_user():
+    return __send_simple_request_with_user_and_pass__(ServiceList.chek_service_user.value)
+
+
+def what_is_my_ip():
+    return list(__send_request__(serviceName=ServiceList.what_is_my_ip.value))
+
+
+def get_server_time():
+    return list(__send_request__(serviceName=ServiceList.get_server_time.value))
+
+
+def close_waybill(waybill_id):
+    params = GlobalVariables.ServiceParameters()
+    data = {
+        "su": params.su,
+        "sp": params.sp,
+        "waybill_id": waybill_id
+    }
+    return list(__send_request__(serviceName=ServiceList.close_waybill.value, data=data))
+
+
+def get_service_users(main_userName, main_password):
+    data = {
+        "user_name": main_userName,
+        "user_password": main_password.sp,
+    }
+    return list(__send_request__(serviceName=ServiceList.get_service_users.value, data=data))
+
+
+def get_trans_types():
+    return __send_simple_request_with_user_and_pass__(ServiceList.get_trans_types.value)
+
+
+def get_car_numbers():
+    return __send_simple_request_with_user_and_pass__(ServiceList.get_car_numbers.value)
+
+
+def get_error_codes():
+    return __send_simple_request_with_user_and_pass__(ServiceList.get_error_codes.value)
