@@ -6,10 +6,9 @@ def show(value,name: str):
 
 
 if __name__ == "__main__":
-    #user = input("Service User:")
-    #pasword = input("Service Password")
-    user = 'POCKET:202311738'
-    password = 'trd@1234'
-    client = ServiceClient(str(user), password=password)
+    user = input("Service User:")
+    pasword = input("Service Password")
+
+    client = ServiceClient(str(user), password=pasword)
 
     x = client.get_server_time()
