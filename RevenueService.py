@@ -1,14 +1,12 @@
 from suds.client import Client
 
-url = "http://services.rs.ge/WayBillService/WayBillService.asmx?WSDL"
-
 
 class ServiceClient:
     mainUser = ""
     mainPass = ""
 
     def __init__(self, user: str, password: str):
-        self.client = Client(url)
+        self.client = Client("http://services.rs.ge/WayBillService/WayBillService.asmx?WSDL")
         self.user = user
         self.password = password
 
@@ -21,7 +19,7 @@ class ServiceClient:
     def close_waybill_transporter(self, waybill_id: int, reception_info: str, receiver_info: str, delivery_date):
         return self.client.service.close_waybill_transporter(self.user, self.password, waybill_id, reception_info,
                                                              receiver_info, delivery_date)
-
+    
     def close_waybill_vd(self,delivery_date,waybill_id:int):
         return self.client.close_waybill_vd(self.user, self.password,delivery_date,waybill_id)
 
